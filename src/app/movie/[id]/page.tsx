@@ -11,14 +11,14 @@ async function getMovie(id: string) {
   return res.json();
 }
 
-// Perhatikan: params sekarang didefinisikan sebagai Promise
+
 export default async function MovieDetailPage({ 
   params 
 }: { 
   params: Promise<{ id: string }> 
 }) {
   
-  // LANGKAH KRUSIAL: Unwrapping params dengan await
+  //Unwrapping params dengan await
   const resolvedParams = await params;
   const id = resolvedParams.id;
   

@@ -23,10 +23,18 @@ export default function MovieCard({ movie }: any) {
       <div className="bg-gray-900 rounded-xl overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:ring-2 group-hover:ring-purple-500 shadow-lg">
         <div className="relative aspect-[2/3]">
           <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            src={
+                movie.poster_path 
+                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` 
+                    : `https://placehold.co/500x750/111827/FFFFFF?text=${encodeURIComponent(movie.title)}`
+            }
             alt={movie.title}
             className="w-full h-full object-cover"
-          />
+            //menambahkan error handling jika link gambar dari TMDB broken
+            onError={(e) => {
+                (e.target as HTMLImageElement).src = `https://placehold.co/500x750/111827/FFFFFF?text=${encodeURIComponent(movie.title)}`;
+            }}
+        />
           
           {/* Tombol Hati (Zustand Interaction) */}
           <button 

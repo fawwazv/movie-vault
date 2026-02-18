@@ -3,10 +3,20 @@ import Link from 'next/link';
 import { useStore } from '@/store/useStore';
 import { Clapperboard, Heart, Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const watchlistCount = useStore((state) => state.watchlist.length);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+      if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   // Efek navbar berubah warna saat di-scroll
   useEffect(() => {
@@ -43,9 +53,15 @@ export default function Navbar() {
           </Link>
 
           {/* Icon Search (Placeholder untuk fitur CSR selanjutnya) */}
-          <button className="p-2 hover:bg-white/10 rounded-full transition">
-            <Search size={24} />
-          </button>
+          <form onSubmit={handleSearch} className="relative hidden md:block">
+            <input 
+                type="text"
+                placeholder="Cari film..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="bg-white/10 border border-white/20 rounded-full py-1.5 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-sm w-64"/>
+            <Search className="absolute left-3 top-2 text-gray-400" size={18} />
+          </form>
         </div>
       </div>
     </nav>
