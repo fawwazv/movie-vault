@@ -53,13 +53,14 @@ export default function Navbar() {
           </Link>
 
           {/* Icon Search (Placeholder untuk fitur CSR selanjutnya) */}
-          <form onSubmit={handleSearch} className="relative hidden md:block">
+          <form onSubmit={handleSearch} className="relative flex items-center">
             <input 
-                type="text"
-                placeholder="Cari film..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-white/10 border border-white/20 rounded-full py-1.5 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-sm w-64"/>
+              type="text"
+              placeholder="Cari..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-white/10 border border-white/20 rounded-full py-1.5 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-sm w-32 sm:w-48 md:w-64"
+            />
             <Search className="absolute left-3 top-2 text-gray-400" size={18} />
           </form>
         </div>
