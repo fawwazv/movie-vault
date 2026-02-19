@@ -12,6 +12,9 @@ interface WatchlistState {
   watchlist: Movie[];
   addToWatchlist: (movie: Movie) => void;
   removeFromWatchlist: (id: number) => void;
+  // TAMBAHKAN DUA BARIS INI:
+  selectedGenre: number | null;
+  setSelectedGenre: (id: number | null) => void;
 }
 
 export const useStore = create<WatchlistState>()(
@@ -28,6 +31,9 @@ export const useStore = create<WatchlistState>()(
         set((state) => ({
           watchlist: state.watchlist.filter((m) => m.id !== id),
         })),
+      
+      selectedGenre: null,
+      setSelectedGenre: (id) => set({ selectedGenre: id }),
     }),
     { name: 'movie-vault-storage' }
   )
