@@ -26,14 +26,14 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        // Mengecek user di database sesuai instruksi PDF
+        // Mengecek user di database 
         const [rows]: any = await db.execute(
           "SELECT * FROM users WHERE email = ?", 
           [credentials.email]
         );
         const user = rows[0];
 
-        // Validasi password (di praktikum menggunakan teks biasa)
+        // Validasi password 
         if (user && user.password === credentials.password) {
           return { id: user.id.toString(), email: user.email, name: user.email, role: user.role };
         }
@@ -54,7 +54,7 @@ const authOptions: NextAuthOptions = {
       }
 
       // Jika user login menggunakan Google, otomatiskan data ke Database
-      if (account?.provider === "google") {
+      if (account?.provider === "google" && token.email) {
         const [rows]: any = await db.execute("SELECT * FROM users WHERE email = ?", [token.email]);
         
         if (rows.length === 0) {
